@@ -67,6 +67,7 @@ public abstract class Creature : MonoBehaviour, IDamagable , IIndentity
     public virtual void Restore(in RestoreData restoreData)
     {
         Health.AddNeed(restoreData.RestoreValue);
+        RestoreDone?.Invoke(restoreData);
     }
 
     protected virtual void Attack()
