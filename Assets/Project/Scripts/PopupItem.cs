@@ -68,7 +68,9 @@ public class PopupItem : MonoBehaviour
         var inventory = _inventoryRepository.GetById(_needInventory);
         if (item is Ammo ammo)
         {
-
+            var itemValue = inventory.GetItemValue(ammo.Id);
+            var needValue = ammo.RemoteConfigDto.DefaultCapacityPerSlot - itemValue;
+            inventory.PutFirst(new InventoryItem(ammo.Id as ItemId, ammo.RemoteConfigDto.DefaultCapacityPerSlot, ammo.Configuration.Icon), needValue);
         }
         else if (item is FirstAidKit firstAidKit)
         {

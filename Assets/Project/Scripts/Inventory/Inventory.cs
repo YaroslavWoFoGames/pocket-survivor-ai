@@ -38,7 +38,7 @@ public class Inventory : IIndentity
 
     public virtual void PutFirst(InventoryItem item, int amount)
     {
-        var needSlot = _slots.FirstOrDefault(x => (!x.IsEmpty && !x.IsFull &&  x.CurrentItem == item && x.CurrentItem.CurrentAmount + amount <= x.CurrentItem.DefaultCapacityPerSlot));
+        var needSlot = _slots.FirstOrDefault(x => (!x.IsEmpty && !x.IsFull &&  x.CurrentItem== item && x.CurrentItem.CurrentAmount + amount <= x.CurrentItem.DefaultCapacityPerSlot));
         
         if(needSlot == null)
         {
