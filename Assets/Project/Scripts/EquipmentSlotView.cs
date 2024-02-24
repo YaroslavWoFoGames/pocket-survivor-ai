@@ -41,7 +41,7 @@ public class EquipmentSlotView : MonoBehaviour,
         {
             _currentItemInSlot = Instantiate(_prefab, transform);
             _armorValue.text = (_itemRepository.GetById(Model.CurrentItem.ItemId) as Cloth).ArmorValue.ToString();
-            _currentItemInSlot.Setup(Model.CurrentItem, false);
+            _currentItemInSlot.Setup(in Model.CurrentItem, false);
 
         }
     }

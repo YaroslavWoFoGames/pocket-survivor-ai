@@ -18,7 +18,7 @@ public class ItemView : MonoBehaviour,
     private Canvas _mainCanvas;
     private Transform _parent;
     private bool _isClickable = true;
-    public void Setup(InventoryItem model, bool isClickable = true)
+    public void Setup(in InventoryItem model, bool isClickable = true)
     {
         Model = model; 
         _isClickable = isClickable;

@@ -8,6 +8,8 @@ public abstract class Creature : MonoBehaviour, IDamagable , IIndentity
     public event Action<DeathData> Died;
     public event Action Respawned;
     public event Action<DamageData> DamageDone;
+    public event Action<RestoreData> RestoreDone;
+
 
     public CreatureConfiguration Configuration;
 

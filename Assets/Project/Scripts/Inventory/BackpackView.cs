@@ -23,28 +23,25 @@ public class BackpackView : MonoBehaviour
 
     private void CreateInventory()
     {
-        var model = _inventoryRepository.GetById(_inventoryId);
-        var remote = model.RemoteConfigDto;
-        var startItemData = model.Configuration.InventoryStartData;
-        model.CreateSlots(remote.InventoryAmountOfSlots);
+        var backPack = _inventoryRepository.GetById(_inventoryId);
+        var remote = backPack.RemoteConfigDto;
+        var startItemData = backPack.Configuration.InventoryStartData;
+        backPack.CreateSlots(remote.InventoryAmountOfSlots);
         _gridLayoutGroup.constraintCount = remote.NumberOfColumnsInventory;
 
-        foreach (var data in startItemData)
-        {
-            var slot = model.Slots.FirstOrDefault(x => x.IdSlot == data.NumberSlot);
-            if(slot != null)
-            {
-                var item = _itemRepository.GetById(data.ItemId);
-                slot.Add(new InventoryItem(item.Configuration.Id, item.RemoteConfigDto.DefaultCapacityPerSlot, item.Configuration.Icon), data.AmountItems);
-            }
-        }
-      
         for (int i = 0; i < remote.InventoryAmountOfSlots; i++)
         {
             var slot = Instantiate(_prefabSlotView, _slotsContent);
-            slot.Setup(model.Slots.First(x => x.IdSlot == i));
+            slot.Setup(backPack.Slots.First(x => x.IdSlot == i));
             _createdSlotsView.Add(slot);
         }
+
+        foreach (var data in startItemData)
+        {
+            var item = _itemRepository.GetById(data.ItemId);
+            backPack.Put(data.NumberSlot, new InventoryItem(item.Configuration.Id, item.RemoteConfigDto.DefaultCapacityPerSlot, item.Configuration.Icon), data.AmountItems);
+        }
+      
 
     }
 }

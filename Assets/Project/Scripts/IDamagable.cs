@@ -7,4 +7,6 @@ public interface IDamagable
 
     public event Action<DamageData> DamageDone;
 
+    public event Action<RestoreData> RestoreDone;
+
 }

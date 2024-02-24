@@ -27,18 +27,18 @@ public class Inventory : IIndentity
         RemoteConfigDto = remoteConfig;
     }
 
-    public virtual void Put(int slotNumber, InventoryItem item, int amount)
+    public virtual void Put(int slotNumber, in InventoryItem item, int amount)
     {
         var needSlot = _slots.FirstOrDefault(x => x.IdSlot == slotNumber);
         if(needSlot != null)
         {
-            needSlot.Add(item, amount);
+            needSlot.Add(in item, amount);
         }
     }
 
     public virtual void PutFirst(InventoryItem item, int amount)
     {
-        var needSlot = _slots.FirstOrDefault(x => (!x.IsEmpty && !x.IsFull &&  x.CurrentItem== item && x.CurrentItem.CurrentAmount + amount <= x.CurrentItem.DefaultCapacityPerSlot));
+        var needSlot = _slots.FirstOrDefault(x => (!x.IsEmpty && !x.IsFull &&  x.CurrentItem.ItemId.Id == item.ItemId.Id && x.CurrentItem.CurrentAmount + amount <= x.CurrentItem.DefaultCapacityPerSlot));
         
         if(needSlot == null)
         {
@@ -47,7 +47,7 @@ public class Inventory : IIndentity
 
         if (needSlot != null)
         {
-            needSlot.Add(item, amount);
+            needSlot.Add(in item, amount);
         }
     }
     public virtual void Take(string itemId, int value)

@@ -18,17 +18,13 @@ public class SlotView : MonoBehaviour,
         Model = model;
         Model.Added = OnAdded;
         Model.Removed = OnRemoved;
-        if(!Model.IsEmpty)
-            OnAdded(Model.CurrentItem.CurrentAmount);
     }
 
-    public void OnAdded(int currentAmount) 
+    public void OnAdded(int currentAmount)
     {
-        if (currentAmount>0)
-        {
+        if (_currentItemInSlot == null)
             _currentItemInSlot = Instantiate(_prefab, transform);
-            _currentItemInSlot.Setup(Model.CurrentItem);
-        }
+        _currentItemInSlot.Setup(in Model.CurrentItem);
     }
     public void OnRemoved(int currentAmount)
     {
@@ -43,14 +39,14 @@ public class SlotView : MonoBehaviour,
     }
     public void OnDrop(PointerEventData eventData)
     {
-       if(eventData.pointerDrag.TryGetComponent(out ItemView itemView) && Model.CurrentItem == null)
-       {
+        if (eventData.pointerDrag.TryGetComponent(out ItemView itemView) && Model.IsEmpty)
+        {
             //if(Model.CurrentItem == null)
             //{
             //    itemView.SetupNewParent(transform);
             //    Model.Add(itemView.Model, itemView.Model.CurrentAmount);
             //    itemView.Model.CurrentAmount.TakeNeed(itemView.Model.CurrentAmount);
-               
+
             //}
             //else if(Model.CurrentItem != null && !Model.IsFull
             //    && Model.CurrentItem == itemView.Model
@@ -59,10 +55,10 @@ public class SlotView : MonoBehaviour,
             //    itemView.SetupNewParent(transform);
             //    Model.Add(itemView.Model, itemView.Model.CurrentAmount);
             //    itemView.Model.CurrentAmount.TakeNeed(itemView.Model.CurrentAmount);
-                
+
             //}
-          
-       }
+
+        }
 
     }
 }
