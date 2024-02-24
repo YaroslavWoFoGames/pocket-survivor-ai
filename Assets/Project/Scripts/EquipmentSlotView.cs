@@ -11,28 +11,54 @@ public class EquipmentSlotView : MonoBehaviour,
     [SerializeField] private TextMeshProUGUI _armorValue;
     [SerializeField] private TextMeshProUGUI _namePart;
     [SerializeField] private Image _partIcon;
-
-   public EquipmentSlot Model;
+    
+    public EquipmentSlot Model;
 
 
     private ItemView _currentItemInSlot;
+    private ItemRepository _itemRepository;
 
-    public void Setup(EquipmentSlot model, Sprite icon)
+    public void Setup(EquipmentSlot model, Sprite icon, ItemRepository itemRepository)
     {
         Model = model;
-        _partIcon.sprite = icon;
-        UpdateView();
-    }
+        _itemRepository = itemRepository;
 
-    private void UpdateView()
-    {
+        Model.Added = OnAdded;
+        Model.Removed = OnRemoved;
+
         if (!Model.IsEmpty)
-        {
-            _currentItemInSlot.Setup(Model.CurrentItem);
-        }
+            OnAdded(Model.CurrentItem.CurrentAmount);
 
+        _partIcon.sprite = icon;
         _namePart.text = LocalizationService.GetTextTranslation(Model.AcceptableId);
     }
+
+
+
+    public void OnAdded(int currentAmount)
+    {
+        if (currentAmount > 0)
+        {
+            _currentItemInSlot = Instantiate(_prefab, transform);
+            _armorValue.text = (_itemRepository.GetById(Model.CurrentItem.ItemId) as Cloth).ArmorValue.ToString();
+            _currentItemInSlot.Setup(Model.CurrentItem, false);
+
+        }
+    }
+    public void OnRemoved(int currentAmount)
+    {
+        if (currentAmount == 0)
+        {
+            Destroy(_currentItemInSlot.gameObject);
+            _armorValue.text = "0";
+        }
+        else
+        {
+            _currentItemInSlot.UpdateValue(currentAmount);
+        }
+    }
+
+
 
  
     public void OnDrop(PointerEventData eventData)

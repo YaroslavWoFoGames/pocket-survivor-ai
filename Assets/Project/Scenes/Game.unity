@@ -2957,8 +2957,8 @@ MonoBehaviour:
   _dynamicButton: {fileID: 422219765}
   _popup: {fileID: 1222866848}
   _itemRepository: {fileID: 5909865022622487066}
-  _inventoryRepository: {fileID: 0}
-  _needInventory: {fileID: 0}
+  _inventoryRepository: {fileID: 709407912194887188}
+  _needInventory: {fileID: 11400000, guid: aae95e0305476ac458207505646ee3cf, type: 2}
   _player: {fileID: 1191063203}
 --- !u!1001 &709407912194887187
 PrefabInstance:

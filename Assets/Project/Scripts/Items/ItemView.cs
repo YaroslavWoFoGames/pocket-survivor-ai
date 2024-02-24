@@ -17,10 +17,11 @@ public class ItemView : MonoBehaviour,
     private RectTransform _rectTransform;
     private Canvas _mainCanvas;
     private Transform _parent;
-
-    public void Setup(InventoryItem model)
+    private bool _isClickable = true;
+    public void Setup(InventoryItem model, bool isClickable = true)
     {
-        Model = model;
+        Model = model; 
+        _isClickable = isClickable;
         UpdateView();
     }
 
@@ -81,7 +82,8 @@ public class ItemView : MonoBehaviour,
   
     public void OnPointerClick(PointerEventData eventData)
     {
-        ShowInfo();
+        if(_isClickable)
+            ShowInfo();
     }
 
     private void ShowInfo()

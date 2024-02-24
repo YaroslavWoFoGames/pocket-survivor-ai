@@ -65,7 +65,7 @@ public class PopupItem : MonoBehaviour
     private void UseItem()
     {
         var item = _itemRepository.GetById(_currentItem);
-
+        var inventory = _inventoryRepository.GetById(_needInventory);
         if (item is Ammo ammo)
         {
 
@@ -73,12 +73,13 @@ public class PopupItem : MonoBehaviour
         else if (item is FirstAidKit firstAidKit)
         {
             _player.Restore(new RestoreData(firstAidKit.RestoreValue));
-            var inventory = _inventoryRepository.GetById(_needInventory);
+          
             inventory.Take(_currentItem, 1);
         }
         else if (item is Cloth  cloth)
         {
-
+            _player.Equipment.PutFirst(cloth);
+            inventory.Take(_currentItem, 1);
         }
 
       

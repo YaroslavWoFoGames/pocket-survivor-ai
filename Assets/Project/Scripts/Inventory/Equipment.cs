@@ -27,5 +27,15 @@ public class Equipment
             }
         }
         return null;
-    } 
+    }
+
+    public virtual void PutFirst(Cloth item)
+    {
+        var needSlot = _slots.FirstOrDefault(x => (x.AcceptableId == item.BodyId));
+
+        if (needSlot != null)
+        {
+            needSlot.Add(new InventoryItem(item.Id as ItemId, item.RemoteConfigDto.DefaultCapacityPerSlot, item.Configuration.Icon ), 1);
+        }
+    }
 }

@@ -30,7 +30,7 @@ public class EquipmentView : MonoBehaviour
         for (int i = 0; i < model.Slots.Count; i++)
         {
             var slot = Instantiate(_prefabEquipmentSlotView, _slotsContent);
-            slot.Setup(model.Slots.First(x => x.IdSlot == i), model.EquipmentSlotCongigurations[i].Icon);
+            slot.Setup(model.Slots.First(x => x.IdSlot == i), model.EquipmentSlotCongigurations[i].Icon, _itemRepository);
             _createdSlotsView.Add(slot);
         }
 
